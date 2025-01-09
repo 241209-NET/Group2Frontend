@@ -1,4 +1,6 @@
 import '../App.css';
+import './NavBar.css';
+
 
 import { useState } from 'react';
 
