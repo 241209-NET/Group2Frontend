@@ -1,4 +1,6 @@
 .navBar {
+    left: 0;
+    top: 5%;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
