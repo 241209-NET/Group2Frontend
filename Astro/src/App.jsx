@@ -1,26 +1,26 @@
-import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import wallpaper from './assets/space_wallpaper.jpeg';
-
 import NavBar from './components/NavBar';
-
 import Home from './components/Home';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import UserProvider from './components/UserContext';
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  //const [loggedIn, loggedOut] = useState(loggedOut);
-
   return (
-    <div>
-
-      <div className="title">ASTRO</div>
-      <NavBar></NavBar>
-      <Home></Home>
-
-      </div>
-
+    <UserProvider>
+      <Router>
+        <div className="title">ASTRO</div>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Router>
+    </UserProvider>
   );
 }
 

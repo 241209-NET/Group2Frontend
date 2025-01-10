@@ -1,20 +1,12 @@
-import '../App.css';
-
-import { useState } from 'react';
-
-import { Link } from 'react-router-dom'
+import './NavBar.css';
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
-
-    return ( 
-
+    return (
         <nav className="navBar">
-            <a href="/logian">Login</a>
-            <a href="/signup">Signup</a>
-            <a href="/home">Home</a>
-            <a href="/About">About</a>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
+            <Link to="/home">Home</Link>
         </nav>
-    
-    )
-
+    );
 }

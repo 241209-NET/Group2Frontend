@@ -30,6 +30,46 @@
 }
 
 
+.user-container {
+  background-color: whitesmoke;
+  display: block;
+  padding: 30px;
+  max-width: 350px;
+  max-height: 350px;
+  border-radius: 25.00px;
+  position: relative;
+  align-content: center;
+  align-self: center;
+  align-items: center;
+}
+
+.user-input {
+
+  outline: none;
+  border: 2px solid #e5e7eb;
+  margin: 8px 0;
+  font-size: 30px;
+  border-radius: 5.00px;
+
+  border: 5px solid grey;
+
+}
+
+.user-button {
+
+  outline: none;
+  border: 2px solid black;
+  margin: 8px 0;
+  font-size: 30px;
+  border-radius: 5.00px;
+
+  color: white;
+  background-color: darkslateblue;
+
+  border: 5px solid grey;
+
+}
+
 .navBar {
   position: fixed;
   top: 5%;
