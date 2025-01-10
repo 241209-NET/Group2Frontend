@@ -29,6 +29,16 @@
   z-index: -1; /* Push the background behind other elements */
 }
 
+.portrait {
+  width: 50%;
+  height: 50%;
+  padding: 5px;
+  border-radius: 2px;
+  background-color: gold;
+  box-shadow: 15px 15px 30px #bebebe,
+              -15px -15px 30px #ffffff;
+}
+
 
 .user-container {
   background-color: whitesmoke;
@@ -41,6 +51,7 @@
   align-content: center;
   align-self: center;
   align-items: center;
+  flex: auto;
 }
 
 .user-input {
@@ -70,25 +81,7 @@
 
 }
 
-.navBar {
-  position: fixed;
-  top: 5%;
-  left: 0;
-  height: 5%;
-  width: 100%;
-  background-color: rgb(75, 75, 75);
-  color: white;
-  align-content: center;
-  align-items: center;
-  padding: 0 5%;
-  
-  display: flex;
 
-  flex-direction: row;
-  gap: 2.5%;
-  
-  font-size: 20px;
-}
 
 .logo {
   height: 6em;

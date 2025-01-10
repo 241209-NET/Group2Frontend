@@ -42,7 +42,7 @@ export default function Home() {
             podData ? (
                 <div>
                     <h3>{podData.title}</h3>
-                    <img src={podData.url} alt={podData.explanation} />
+                    <img src={podData.url} alt={podData.explanation} className="portrait" />
                     <p>{podData.explanation}</p>
                 </div>
             ) : (
