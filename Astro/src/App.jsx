@@ -6,12 +6,14 @@ import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import UserProvider from './components/UserContext';
+import Search from './components/Search';
 
 function App() {
   return (
     <UserProvider>
       <Router>
         <div className="title">ASTRO</div>
+        <div className='search'>< Search /></div>
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
