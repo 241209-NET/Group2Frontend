@@ -5,7 +5,7 @@ import axios from 'axios'
 
 export default function Home() {
 
-    const [podToFind, setPodToFind] = useState(1); //By default, it loads Bulbasaur 
+    const [podToFind, setPodToFind] = useState(new Date().toISOString().slice(0, 10)); //By default, it loads Bulbasaur 
     const [podData, setPodData] = useState(null); //By default, before the user searches this is null;
 
 
@@ -15,8 +15,8 @@ export default function Home() {
         const fetchPodData = async () => {
             try{
                 //First we try to get a response from pokeAPI
-                const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`); // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
-                
+                const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${podToFind}`); // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
+                console.log(podToFind);
                 setPodData({
                     title: response.data.title,
                     date: response.data.date,
@@ -31,13 +31,26 @@ export default function Home() {
         };
         //Here we just call the function
         fetchPodData();
-        //console.log(podData.url);
     }, [podToFind]); // UseEffect exepcts a dependency array as a second argument.
     //Even if you have none, omitting this can result in an infinite loop. 
+    const handleInputChange = (event) => {
+        if (event.target.value.length == 10) {
+            setPodToFind(event.target.value)
+            console.log('do validate');
+          }
+    }
 
     return ( 
 
         <div className="home">
+            <div>
+            <h2>Search</h2>
+            <input 
+                type="text" 
+                onChange={handleInputChange}
+                placeholder='yyyy-mm-day'
+            />
+            </div>
         {
             podData ? (
                 <div>

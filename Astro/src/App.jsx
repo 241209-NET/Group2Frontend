@@ -16,7 +16,6 @@ function App() {
       <Router>
       <div>
         <div className="title">ASTRO</div>
-        {/*<Search />*/}
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
