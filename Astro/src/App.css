@@ -116,6 +116,21 @@
 }
 
 
+.profile-button {
+
+  outline: none;
+  border: 2px solid black;
+  margin: 8px 0;
+  font-size: 30px;
+  border-radius: 5.00px;
+
+  color: white;
+  background-color: darkslateblue;
+
+  border: 5px solid grey;
+
+}
+
 
 .logo {
   height: 6em;

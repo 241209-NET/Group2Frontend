@@ -7,14 +7,16 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Profile from './components/Profile'; // Import Profile component
 import UserProvider from './components/UserContext';
-import Review from './components/Review'; // Assuming this is another valid component
+import Search from './components/Search';
 
 function App() {
 
   return (
     <UserProvider>
       <Router>
+      <div>
         <div className="title">ASTRO</div>
+        {/*<Search />*/}
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -23,6 +25,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
+      </div>
       </Router>
     </UserProvider>
   );
