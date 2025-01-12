@@ -5,9 +5,12 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
+import Profile from './components/Profile'; // Import Profile component
 import UserProvider from './components/UserContext';
+import Review from './components/Review'; // Assuming this is another valid component
 
 function App() {
+
   return (
     <UserProvider>
       <Router>
@@ -18,6 +21,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </Router>
     </UserProvider>

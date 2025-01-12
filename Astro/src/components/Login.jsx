@@ -1,17 +1,19 @@
 import '../App.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import useUserContext  from './UserContext';
+import { useUserContext } from './UserContext'; // Corrected import
 import axios from 'axios';
 
-export default function Login() {
+import { useNavigate } from 'react-router-dom';
 
+export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    //some reason this causes site not to run
-    //const { login } = useUserContext();
-  
+    const { currentUser, login } = useUserContext();
+
+    const navigate = useNavigate();
+
     async function handleLogin(event) {
 
         /*
@@ -36,17 +38,20 @@ export default function Login() {
         }
         */
 
-        alert("FINISH CODE LATER");
-
-
+        if (currentUser === username) {
+            alert('You are already logged in!');
+        } else {
+            login(username); // Update context state
+            alert('Logged in successfully!');
+            navigate('/home');
+            return null;
+        }
 
     }
-        
 
     return (
         <div className="user-container">
             <h2>Login to your account</h2>
-
             <div>
                 <div>
                     <input
@@ -57,7 +62,6 @@ export default function Login() {
                         required
                     />
                 </div>
-
                 <div>
                     <input
                         className="user-input"
@@ -68,11 +72,10 @@ export default function Login() {
                         placeholder="password"
                     />
                 </div>
-
-                <button type="submit" onClick={handleLogin} className="user-button">Submit</button>
-
+                <button type="submit" onClick={handleLogin} className="user-button">
+                    Submit
+                </button>
             </div>
-
         </div>
     );
 }

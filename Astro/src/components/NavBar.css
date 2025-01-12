@@ -19,3 +19,17 @@
     /*border-radius: 5%;  */
     border-bottom: 2.5px solid white;
 }
+
+
+
+.user-icon {
+    background-color: gold;
+    display: flex;
+    color: black;
+    border-radius: 50%;
+    width: 10%;
+    width: 5%;
+    justify-content: center;
+
+    border-bottom: 2.5px solid white;
+}

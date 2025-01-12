@@ -2,21 +2,26 @@ import '../App.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-//import  useUserContext  from './UserContext';
+import  { useUserContext }  from './UserContext';
+
+import { useNavigate } from 'react-router-dom';
 
 import Login from './Login';
 
 export default function SignUp() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    //const { login } = useUserContext();
+    const { currentUser, login } = useUserContext();
+
+    const navigate = useNavigate();
+      
 
     function isValidPassword(password) {
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
         return regex.test(password);
     }
 
-    /*
+
     async function isValidUsername(username) {
         try {
             const response = await axios.get(`https://Astro/Users/check/${username}`);
@@ -29,6 +34,7 @@ export default function SignUp() {
 
     async function addUser(user) {
         try {
+            //CHANGE ROUTE LATER
             await axios.post('https://Astro/Users', user);
             login();
         } catch (error) {
@@ -51,20 +57,27 @@ export default function SignUp() {
 
         const newUser = { username, password };
         await addUser(newUser);
+        login(username);
+        navigate('/home');
     }
-        */
+
 
     const testUsername = "TestName";
     const testPassword = "TestPassword!123";
     function testHandleSignup() {
 
-        if (testUsername === username && testPassword === password) {
+        if (!currentUser && (testUsername === username && testPassword === password)) {
 
             alert("success");
+                navigate('/home');
+                return null;
+            }
 
         }
 
-    }
+    
+
+
 
 
     return (
@@ -85,7 +98,7 @@ export default function SignUp() {
             <div>
                 <input
                     className="user-input"
-                    type="password"
+                    type="text"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
