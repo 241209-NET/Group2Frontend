@@ -4,7 +4,7 @@ import axios from 'axios'
 function Search() {
 
     const handleInputChange = (event) => {
-
+      
     }
 
 
@@ -14,7 +14,7 @@ function Search() {
         <input 
             type="text" 
             onChange={handleInputChange}
-            placeholder='Enter pokemon to search for'
+            placeholder='dd mm yyyy'
         />
 
     </div>
