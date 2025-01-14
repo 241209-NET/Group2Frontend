@@ -67,38 +67,6 @@
 }
 
 
-.comment-box {
-  background-color: whitesmoke;
-  display: block;
-  padding-left: 10px;
-  top: 25%;
-  left: 25%;
-  width: 50%;
-  height: 50%;
-  border-radius: 5.00px;
-  position: fixed;
-  align-content: center;
-  align-self: center;
-  align-items: center;
-  flex: auto;
-}
-
-
-.user-comment {
-
-  outline: none;
-  border: 2px solid #e5e7eb;
-  margin: 8px 0;
-  font-size: 20px;
-  border-radius: 5.00px;
-
-  position: relative;
-
-
-  border: 5px solid grey;
-
-}
-
 
 .user-button {
 

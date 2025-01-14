@@ -23,11 +23,25 @@ export default function SignUp() {
 
 
     async function isValidUsername(username) {
+        
         try {
-            const response = await axios.get(`https://Astro/Users/check/${username}`);
-            return response.data.isAvailable;
-        } catch (error) {
-            console.error(error);
+            const response = await axios.get(`http://localhost:5080/api/User/${username}`);
+            
+            //return true is username is not taken
+            if (response.data === null) {
+
+                return true;
+
+            }
+            else {
+
+                return false;
+
+            }
+
+        } 
+        catch (error) {
+            console.error("Error searching usernames: ", error);
             return false;
         }
     }
@@ -35,30 +49,33 @@ export default function SignUp() {
     async function addUser(user) {
         try {
             //CHANGE ROUTE LATER
-            await axios.post('https://Astro/Users', user);
-            login();
+            await axios.post(`http://localhost:5080/api/User`, user);
         } catch (error) {
-            console.error('Error adding user', error);
+            console.error('Error adding user ', error);
         }
     }
 
-    async function handleSignup() {
+    async function HandleSignup() {
 
         if (!await isValidUsername(username)) {
-            
+            //alert("Invalid Username");
             return;
         }
 
         // Check if password is strong
         if (!isValidPassword(password)) {
-
+            //alert("Invalid Password");
             return;
         }
 
         const newUser = { username, password };
         await addUser(newUser);
         login(username);
+        
+        alert(`Welcome, ${username}!`);
+
         navigate('/home');
+
     }
 
 
@@ -81,6 +98,7 @@ export default function SignUp() {
 
 
     return (
+        
         <div className="user-container">
             <h2>Sign Up for an account</h2>
 
@@ -106,7 +124,7 @@ export default function SignUp() {
                 />
             </div>
 
-            <button className="user-button" onClick={testHandleSignup()}>Sign Up</button>
+            <button className="user-button" onClick={HandleSignup()}>Sign Up</button>
 
         </div>
     );

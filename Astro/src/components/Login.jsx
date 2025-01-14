@@ -1,7 +1,7 @@
 import '../App.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useUserContext } from './UserContext'; // Corrected import
+import { useUserContext } from './UserContext';
 import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
@@ -21,9 +21,11 @@ export default function Login() {
     
         try {
             //REPLACE WITH ACTUAL BACKEND LATER
-            const response = await axios.get(`http://localhost:5080/api/user/login`, {
-                username,
-                password,
+            const response = await axios.get(`http://localhost:5080/api/User/${username}`, {
+                UserId,
+                Username,
+                Email,
+                Password
             });
 
             if (response.data.success) {

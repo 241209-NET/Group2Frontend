@@ -1,0 +1,71 @@
+
+.user-container {
+  background-color: whitesmoke;
+  display: block;
+  padding: 50px;
+  max-width: 350px;
+  max-height: 350px;
+  border-radius: 25.00px;
+  align-content: center;
+  align-self: center;
+  align-items: center;
+  transition: 0.5s ease-out;
+  position: relative;
+}
+
+.user-input {
+
+    outline: none;
+    border: 2px solid #e5e7eb;
+    margin: 8px 0;
+    font-size: 30px;
+    border-radius: 5.00px;
+  
+    border: 5px solid grey;
+  
+  }
+
+  .profile-button {
+
+    outline: none;
+    margin: 5px 10;
+    font-size: 25px;
+    border-radius: 5.00px;
+    position: relative;
+
+    /*width: 350px;*/
+  
+    color: white;
+    background-color: darkslateblue;
+  
+    border: 5px solid grey;
+  
+  }
+
+  .delete-button {
+
+    outline: none;
+    margin: 5px 10;
+    font-size: 25px;
+    border-radius: 5.00px;
+    position: relative;
+
+    /*width: 350px;*/
+  
+    color: white;
+    background-color: darkslateblue;
+
+  
+    border: 5px solid grey;
+  
+  }
+
+  .delete-button:hover {
+
+    /*background-color: black;*/
+    transition: 0.5s ease-out;
+    border: 5px solid red;
+  
+  }
+
+  

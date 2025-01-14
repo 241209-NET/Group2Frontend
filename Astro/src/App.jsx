@@ -8,8 +8,11 @@ import Login from './components/Login';
 import Profile from './components/Profile'; // Import Profile component
 import UserProvider from './components/UserContext';
 import Search from './components/Search';
+import Review, { LoadReview } from './components/Review';
 
 function App() {
+
+
 
   return (
     <UserProvider>
@@ -26,7 +29,10 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
+      {/*<LoadReview username="Bob" comment="this is a comment" />
+      <Review />*/}
       </Router>
+      
     </UserProvider>
   );
 }

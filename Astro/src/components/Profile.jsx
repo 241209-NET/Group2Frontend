@@ -1,4 +1,4 @@
-import '../App.css';
+import './Profile.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserContext } from './UserContext'; 
@@ -12,7 +12,7 @@ export default function Profile() {
 
     function SignOut() {
         return (
-            <button onClick={() => {logout(); navigate('/home');}}>Logout</button>
+            <button onClick={() => {logout(); navigate('/home');}} className="profile-button">Logout</button>
         );
     }
 
@@ -22,7 +22,7 @@ export default function Profile() {
     function UpdatePassword() {
         return (
             <div>
-                <button onClick={() => setPressedChangePasswordButton(true)}>Change Password</button>
+                <button onClick={() => setPressedChangePasswordButton(true)} className="profile-button">Change Password</button>
                 {pressedChangePasswordButton && (
                     <div>
                         <input
@@ -38,8 +38,61 @@ export default function Profile() {
                                 changePassword(password); 
                                 setPressedChangePasswordButton(false);
                             }}
-                        >
+                            className="profile-button">
                             Set New Password
+                        </button>
+                        <button onClick={() => setPressedChangePasswordButton(false)} className="profile-button">
+                            Cancel change password
+                        </button>
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    const [pressedDeleteProfileButton, setPressedDeleteProfileButton] = useState(false);
+
+    function DeleteProfile({ username, password}) {
+        
+        const [pressedConfirmDeleteProfileButton, setPressedConfirmDeleteProfileButton] = useState(false);
+    
+        async function handleDelete() {
+            try {
+                // REPLACE WITH ACTUAL BACKEND LATER
+                const response = await axios.delete(`http://localhost:5080/api/user`, {
+                    data: { username, password }, // Data should be in the body for DELETE requests
+                });
+    
+                if (response.data.success) {
+                    logout();
+                }
+            } catch (error) {
+                console.error("Error deleting profile:", error);
+            }
+        }
+    
+        return (
+            <div>
+                {!pressedDeleteProfileButton && (
+                    <button onClick={() => setPressedDeleteProfileButton(true)} className="profile-button">
+                        Delete Account
+                    </button>
+                )}
+    
+                {pressedDeleteProfileButton && (
+                    <div>
+                        <p>Are you sure you want to delete this account?</p>
+                        <button
+                            onClick={() => {
+                                setPressedConfirmDeleteProfileButton(true);
+                                handleDelete();
+                            }}
+                        className="delete-button"
+                        >
+                            Yes, I want to delete this account
+                        </button>
+                        <button onClick={() => setPressedDeleteProfileButton(false)} className="profile-button">
+                            No, I change my mind
                         </button>
                     </div>
                 )}
@@ -53,11 +106,23 @@ export default function Profile() {
     }
 
     return (
+
         <div className="user-container">
             <h2>{currentUser}</h2>
             <div>
-                <SignOut />
-                <UpdatePassword />
+                {!pressedDeleteProfileButton && (
+                    <div>
+
+                        <SignOut />
+                        <UpdatePassword />
+
+                    </div>
+                )}
+                {!pressedChangePasswordButton && (
+                    <div>
+                    <DeleteProfile />
+                    </div>
+                )}
             </div>
 
             
