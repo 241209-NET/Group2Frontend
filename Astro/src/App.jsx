@@ -20,6 +20,7 @@ function App() {
       <div>
         <div className="title">ASTRO</div>
         <NavBar />
+        <div className="body">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
+        </div>
       </div>
       {/*<LoadReview username="Bob" comment="this is a comment" />
       <Review />*/}

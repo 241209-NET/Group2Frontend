@@ -1,4 +1,4 @@
-import '../App.css';
+
 import './NavBar.css';
 
 import Search from './Search';

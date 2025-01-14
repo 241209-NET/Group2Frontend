@@ -6,11 +6,8 @@
   max-width: 350px;
   max-height: 350px;
   border-radius: 25.00px;
-  align-content: center;
-  align-self: center;
-  align-items: center;
-  transition: 0.5s ease-out;
-  position: relative;
+  margin:auto;
+  margin-top: 10%;
 }
 
 .user-input {
