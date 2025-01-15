@@ -4,9 +4,10 @@ import axios from 'axios'
 
 
 export default function Home() {
-
+    let hostString = "https://p2-astro.azurewebsites.net/api/POD/date/2025-01-14";
     const [podToFind, setPodToFind] = useState(new Date().toISOString().slice(0, 10)); //By default, it loads Bulbasaur 
     const [podData, setPodData] = useState(null); //By default, before the user searches this is null;
+    const [commentData, setCommentData] = useState(null); //By default, before the user searches this is null;
 
 
     useEffect(() => {
@@ -15,8 +16,7 @@ export default function Home() {
         const fetchPodData = async () => {
             try{
                 //First we try to get a response from pokeAPI
-                const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${podToFind}`); // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
-                console.log(podToFind);
+                const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=t4KBfPzEnPxX4Kvs3hA0pSumL2Bc246FFcITOLgF&date=${podToFind}`); // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
                 setPodData({
                     title: response.data.title,
                     date: response.data.date,
@@ -29,19 +29,35 @@ export default function Home() {
                 setPodData(null);
             }
         };
-        //Here we just call the function
+        const fetchApiPodData = async () => {
+            try{
+                const response = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`); // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
+
+            } catch (error) {
+                axios.post('https://p2-astro.azurewebsites.net/api/POD', { Date: `${podToFind}`, Explanation: `${podData.explanation}`, Title: `${podData.title}`, URL: `${podData.url}`}).then(function (response) {console.log(response);}).catch(function (error) {console.log(error);});
+            }
+        };
+        const PostReview = async () => {
+            try{
+                const response = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`);
+                axios.post('https://p2-astro.azurewebsites.net/api/Review', {Comment : `${commentData}`, PODId: `${podToFind}`}).then(function (response) {console.log(response);}).catch(function (error) {console.log(error);});
+            } catch (error) {
+                console.error('Error fetching Pod data:', error)
+            }
+        };
         fetchPodData();
-    }, [podToFind]); // UseEffect exepcts a dependency array as a second argument.
+        fetchApiPodData();
+        PostReview();
+    }, [podToFind, podData, commentData]); // UseEffect exepcts a dependency array as a second argument.
     //Even if you have none, omitting this can result in an infinite loop. 
     const handleInputChange = (event) => {
         if (event.target.value.length == 10) {
-            setPodToFind(event.target.value)
-            console.log('do validate');
+            setPodToFind(event.target.value);
           }
     }
     const handleReview = (event) => {
         if (event.key === 'Enter') {
-            console.log(event.target.value);
+            setCommentData(event.target.value);
           }
     }
 
