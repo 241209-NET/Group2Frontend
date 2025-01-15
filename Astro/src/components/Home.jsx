@@ -39,6 +39,11 @@ export default function Home() {
             console.log('do validate');
           }
     }
+    const handleReview = (event) => {
+        if (event.key === 'Enter') {
+            console.log(event.target.value);
+          }
+    }
 
     return ( 
 
@@ -64,7 +69,14 @@ export default function Home() {
                 </div>
             )
         }
-        <div>Astro is a full-stack web application designed to bring astronomy enthusiasts together. By combining the latest NASA imagery with a social platform, Astro offers users a unique space to explore the cosmos and connect with others who share their passion for astronomy.</div>
+            <div>
+            <h2>comments</h2>
+            <input 
+                type="text"
+                placeholder='Enter Your Comment'
+                onKeyDown={handleReview}
+            />
+            </div>       
 
         </div>
     )
