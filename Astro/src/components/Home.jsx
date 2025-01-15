@@ -39,7 +39,7 @@ export default function Home() {
             try{
                 const response = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`); // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
             } catch (error) {
-                const response = axios.post('https://p2-astro.azurewebsites.net/api/POD', { Date: `${podToFind}`, Explanation: `${podData.explanation}`, Title: `${podData.title}`, URL: `${podData.url}`}).then(function (response) {console.log(response);}).catch(function (error) {console.log(error);});
+                axios.post('https://p2-astro.azurewebsites.net/api/POD', { Date: `${podToFind}`, Explanation: `${podData.explanation}`, Title: `${podData.title}`, URL: `${podData.url}`}).then(function (response) {console.log(response);}).catch(function (error) {console.log(error);});
 
             }
         };
@@ -53,14 +53,13 @@ export default function Home() {
                 if(commentData)
                 {
                     const response = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`);
-                    const postResponse = await axios.post('https://p2-astro.azurewebsites.net/api/Review', {comment:`${commentData}`, userid: `1`, podid: `${response.data.podId}`}).then(function (response) {console.log(response);}).catch(function (error) {console.log(error);});
-                    
-                    console.log(postResponse);
-                    if(postResponse.data.status == 200)
+                    const postResponse = await axios.post('https://p2-astro.azurewebsites.net/api/Review', 
+                    {comment:`${commentData}`, userid: `1`, podid: `${response.data.podId}`})
+
+                    if(postResponse.status == 200)
                     {
                         const reviewResponse = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`);
-                        setReviewData({reviews: reviewResponse.data.reviews});
-                        console.log(reviewData);
+                        setReviewData(reviewResponse.data.reviews);
                     }
                 }
             } catch (error) {
@@ -69,10 +68,26 @@ export default function Home() {
         };
         PostReview();
     }, [commentData]);
+    useEffect(() => {
+        const getComments = async () => {
+            try{
+                const reviewResponse = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`);
+                if(reviewResponse.status == 200)
+                    setReviewData(reviewResponse.data.reviews);
+                else
+                    setReviewData(null);
+            } catch (error) {
+                console.error('Error fetching comment data:', error)
+            }
+        }
+        getComments();
+    }, [podToFind]);
+    
     // UseEffect exepcts a dependency array as a second argument.
     //Even if you have none, omitting this can result in an infinite loop. 
     const handleInputChange = (event) => {
         if (event.key === 'Enter') {
+            setReviewData(null);
             setPodToFind(event.target.value);
           }
     }
@@ -114,7 +129,19 @@ export default function Home() {
                 onKeyDown={handleReview}
             />
             </div>       
-
+        {
+            reviewData ? (
+                <ul>
+                    {reviewData.map((comment, index) => (
+                        <li key = {index}>{comment.comment}</li>
+                    ))}
+                </ul>
+            ) : (
+                <div>
+                    <p> Loading comments...</p>
+                </div>
+            )
+        }
         </div>
     )
 
