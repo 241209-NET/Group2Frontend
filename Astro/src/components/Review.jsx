@@ -38,7 +38,7 @@ export default function Review() {
         try {
 
             //collects all the reviews from the api backend
-            const responseReview = await axios.get(`http://localhost:5080/api/Review`);
+            const responseReview = await axios.get(`https://p2-astro.azurewebsites.net/api/Review`);
     
             if (responseReview.status === 200) {
 
@@ -48,7 +48,7 @@ export default function Review() {
                 const reviewsWithUsernames = await Promise.all(
 
                     reviews.map(async (review) => {
-                        const responseUser = await axios.get(`http://localhost:5080/api/User/${review.UserId}`);
+                        const responseUser = await axios.get(`https://p2-astro.azurewebsites.net/api/User/${review.UserId}`);
                         return {...review, username: responseUser.data.username};
                     })
 
@@ -69,7 +69,7 @@ export default function Review() {
 
         try {
 
-            axios.post(`http://localhost:5080/api/Review`, comment); 
+            axios.post(`https://p2-astro.azurewebsites.net/api/Review/CreateNewReview`, comment); 
 
         } catch (error) {
 

@@ -1,24 +1,28 @@
 import './Profile.css';
-import { useState } from 'react';
+import { useState, useEffect  } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserContext } from './UserContext'; 
 import { useNavigate } from 'react-router-dom';
 
+import axios from 'axios';
+
 import Review from './Review';
 
 export default function Profile() {
-    const { currentUser, logout, changePassword } = useUserContext();
+    const { currentUser, changePassword } = useUserContext();
+    const { logout } = useUserContext();
     const navigate = useNavigate();
 
     function SignOut() {
         return (
-            <button onClick={() => {logout(); navigate('/home');}} className="profile-button">Logout</button>
+            <button onClick={() => {navigate('/home'); logout();}} className="profile-button">Logout</button>
         );
     }
 
     const [pressedChangePasswordButton, setPressedChangePasswordButton] = useState(false);
     const [password, setPassword] = useState('');
 
+    /*
     function UpdatePassword() {
         return (
             <div>
@@ -49,25 +53,34 @@ export default function Profile() {
             </div>
         );
     }
+    */
 
     const [pressedDeleteProfileButton, setPressedDeleteProfileButton] = useState(false);
 
-    function DeleteProfile({ username, password}) {
-        
+    const [pressedConfirmDeleteProfileButton, setPressedConfirmDeleteProfileButton] = useState(false);
+
+    function DeleteProfile({ username }) {
+        const [pressedDeleteProfileButton, setPressedDeleteProfileButton] = useState(false);
         const [pressedConfirmDeleteProfileButton, setPressedConfirmDeleteProfileButton] = useState(false);
-    
+
         async function handleDelete() {
             try {
-                // REPLACE WITH ACTUAL BACKEND LATER
-                const response = await axios.delete(`http://localhost:5080/api/user`, {
-                    data: { username, password }, // Data should be in the body for DELETE requests
-                });
-    
-                if (response.data.success) {
-                    logout();
+                const response = await axios.get(`https://p2-astro.azurewebsites.net/api/User/username/${currentUser}`);
+            
+                if (response.data) {
+                    //alert(`User ID for "${username}" is ${response.data.userId}`);
+                    try {
+                        const responseDelete = await axios.delete(`https://p2-astro.azurewebsites.net/api/User/${response.data.userId}`);
+                        if (responseDelete.status === 200) {
+                            logout();
+                            
+                        }
+                    } catch (deletionError) {
+                        console.error("Error deleting profile:", deletionError);
+                    }
                 }
             } catch (error) {
-                console.error("Error deleting profile:", error);
+                console.error("Error fetching user data:", error);
             }
         }
     
@@ -85,9 +98,9 @@ export default function Profile() {
                         <button
                             onClick={() => {
                                 setPressedConfirmDeleteProfileButton(true);
-                                handleDelete();
+                                handleDelete(); // Call handleDelete when confirmed
                             }}
-                        className="delete-button"
+                            className="delete-button"
                         >
                             Yes, I want to delete this account
                         </button>
@@ -100,10 +113,17 @@ export default function Profile() {
         );
     }
 
-    if (!currentUser) {
-        navigate('/home');
-        return null;
-    }
+    useEffect(() => {
+
+        if (!currentUser) {
+            navigate('/home');
+            //return null;
+        }
+     
+
+    }, [currentUser]);
+
+
 
     return (
 
@@ -114,7 +134,6 @@ export default function Profile() {
                     <div>
 
                         <SignOut />
-                        <UpdatePassword />
 
                     </div>
                 )}
