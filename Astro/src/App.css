@@ -49,7 +49,7 @@
 
 
 .user-container {
-  background-color: whitesmoke;
+  background-color: lightblue;
   display: block;
   padding: 30px;
   max-width: 350px;
@@ -60,6 +60,7 @@
   align-self: center;
   align-items: center;
   flex: auto;
+  color: darkblue;
 }
 
 .user-input {
@@ -69,6 +70,8 @@
   margin: 8px 0;
   font-size: 30px;
   border-radius: 5.00px;
+
+  background-color: white;
 
   border: 5px solid grey;
 
