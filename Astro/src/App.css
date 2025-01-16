@@ -1,7 +1,6 @@
 #root {
   max-width: 100%;
   text-align: center;
-  background-color: rgb(36, 35, 35); /*rgb(36, 35, 35) */
 }
 
 .title {
@@ -18,23 +17,21 @@
 
 .body {
   display: flex;
-  /*position: absolute;*/
-  margin-top: 7%;
+  position: absolute;
   top: 10%;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   justify-content: center; /* Centers horizontally */
-  background-color: rgb(36, 35, 35); /* */
 }
 
 .background {
-  /*position: fixed; /* Ensure the background stays fixed behind content */
+  position: fixed; /* Ensure the background stays fixed behind content */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /*background-position: center;*/
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   z-index: -1; /* Push the background behind other elements */
@@ -52,7 +49,7 @@
 
 
 .user-container {
-  background-color: whitesmoke;
+  background-color: lightblue;
   display: block;
   padding: 30px;
   max-width: 350px;
@@ -63,6 +60,7 @@
   align-self: center;
   align-items: center;
   flex: auto;
+  color: darkblue;
 }
 
 .user-input {
@@ -72,6 +70,8 @@
   margin: 8px 0;
   font-size: 30px;
   border-radius: 5.00px;
+
+  background-color: white;
 
   border: 5px solid grey;
 
@@ -83,9 +83,10 @@
 
   outline: none;
   border: 2px solid black;
-  margin: 8px 0;
+  margin: 10px 0;
   font-size: 30px;
-  border-radius: 5.00px;
+  border-radius: 10.00px;
+  padding: 20px;
 
   color: white;
   background-color: darkslateblue;

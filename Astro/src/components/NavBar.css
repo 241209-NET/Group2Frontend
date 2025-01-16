@@ -8,8 +8,9 @@
     justify-content: space-evenly;
     width: 100%; /* Covers the full width of the screen */
     height: 5%; /* Adjust as needed for navbar height */
-    font-size: 30px;
-    background-color: darkblue;
+    font-size: 27px;
+    /*background-color: darkblue;*/
+    background-color: rgb(37, 49, 116);
     z-index: 1000; /* Ensures it stays above other content */
 }
 
