@@ -68,7 +68,8 @@ export default function Home() {
                     }
                 }
             } catch (error) {
-                console.error('Error fetching Pod data:', error)
+                alert("You need to login to comment!");
+                console.error('Error posting review!:', error)
             }
         };
         PostReview();
