@@ -126,7 +126,7 @@ export default function Home() {
                 </div>
             )
         }
-            <div>
+            <div className='bording-line'>
             <h2>comments</h2>
             <input className='input-field'
                 type="text"
@@ -138,9 +138,9 @@ export default function Home() {
             reviewData ? (
                 <ul>
                     {reviewData.map((comment, index) => (
-                        <div>
+                        <div key = {index}>
                             <div className='list-item'>
-                            <li key = {index}>{comment.comment}</li>
+                                <li >{comment.comment}</li>
                             </div>
                         </div>
                         
