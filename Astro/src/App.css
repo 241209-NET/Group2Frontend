@@ -54,20 +54,16 @@
 
 .user-container {
   background-color: lightblue;
-  display: block;
   padding: 30px;
   width: 350px;
   max-height: 350px;
-  border-radius: 25.00px;
-  align-content: center;
-  align-self: center;
-  align-items: center;
-  flex: auto;
+  border-radius: 25px;
   color: darkblue;
 
   position: absolute;
-  top: 10%; 
-  left: 42%;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .user-input {
