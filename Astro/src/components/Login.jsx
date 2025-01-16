@@ -8,13 +8,12 @@ import { useNavigate } from 'react-router-dom';
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { login } = useUserContext();
+    const { login, logout, currentId } = useUserContext();
     const navigate = useNavigate();
 
     async function HandleLogin(event) {
+        
         event.preventDefault();
-    
-        const user = { username, password };
     
         try {
             const response = await axios.post('https://p2-astro.azurewebsites.net/api/User/login', {
@@ -23,13 +22,16 @@ export default function Login() {
             });
     
             if (response.status === 200 && response.data) {
-                const retrievedUsername = response.data.username;
-                login(retrievedUsername); // Save user data in the context
+                const retrievedUser = response.data;
+                
+                logout();
+                login(retrievedUser); // Save user data in the context
                 alert('Logged in successfully!');
                 navigate('/home');
             } else {
                 // If the response is invalid, alert the user
                 alert('Invalid username or password.');
+
             }
         } catch (error) {
             console.error('Login error:', error);

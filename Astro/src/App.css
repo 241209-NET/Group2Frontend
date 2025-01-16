@@ -13,6 +13,7 @@
   background-color: black;
   color: white;
   font-size: 20px;
+  z-index: 1000;
 }
 
 .body {
@@ -49,7 +50,7 @@
 
 
 .user-container {
-  background-color: whitesmoke;
+  background-color: lightblue;
   display: block;
   padding: 30px;
   max-width: 350px;
@@ -60,6 +61,7 @@
   align-self: center;
   align-items: center;
   flex: auto;
+  color: darkblue;
 }
 
 .user-input {
@@ -69,6 +71,10 @@
   margin: 8px 0;
   font-size: 30px;
   border-radius: 5.00px;
+
+  background-color: white;
+
+  color: black;
 
   border: 5px solid grey;
 
@@ -80,9 +86,10 @@
 
   outline: none;
   border: 2px solid black;
-  margin: 8px 0;
+  margin: 10px 0;
   font-size: 30px;
-  border-radius: 5.00px;
+  border-radius: 10.00px;
+  padding: 20px;
 
   color: white;
   background-color: darkslateblue;

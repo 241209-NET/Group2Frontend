@@ -10,32 +10,50 @@ export default function UserProvider({ children }) {
         return localStorage.getItem('currentUser') || null;
     });
 
+    /*
     const [currentPassword, setPassword] = useState(() => {
         return localStorage.getItem('currentPassword') || null;
+    });
+    */
+
+    const [currentId, setCurrentId] = useState(() => {
+        return localStorage.getItem('currentId') || null;
+    });
+
+    const [currentEmail, setCurrentEmail] = useState(() => {
+        return localStorage.getItem('currentEmail') || null;
     });
 
     useEffect(() => {
 
         if (currentUser) {
             localStorage.setItem('currentUser', currentUser);
-            localStorage.setItem('currentPassword', currentPassword);
+            localStorage.setItem('currentId', currentId);
+            localStorage.setItem('currentPassword', currentEmail);
+
         } 
         else {
             localStorage.removeItem('currentUser');
-            localStorage.removeItem('currentPassword');
+            localStorage.removeItem('currentEmail');
+            localStorage.removeItem('currentId');
         }
 
     }, [currentUser]);
 
-    function login(username) {
-        setCurrentUser(username); 
+    function login(user) {
+        setCurrentUser(user.username); 
+        setCurrentId(user.userId);
+        setCurrentEmail(user.email);
+        
     }
 
     function logout() {
         setCurrentUser(null);
-        setCurrentPassword(null);
+        setCurrentId(null);
+        setCurrentEmail(null);
     }
 
+    /*
     function ChangePassword(newPassword) {
 
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
@@ -51,9 +69,10 @@ export default function UserProvider({ children }) {
 
         }
     }
+    */
 
     return (
-        <UserContext.Provider value={{ currentUser, login, logout }}>
+        <UserContext.Provider value={{ currentUser, currentId, login, logout }}>
             {children}
         </UserContext.Provider>
     );

@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import './Home.css';
 
+import { useUserContext } from './UserContext';
+
 
 export default function Home() {
     //let hostString = "https://p2-astro.azurewebsites.net/api/POD/date/2025-01-14";
@@ -10,6 +12,8 @@ export default function Home() {
     const [podData, setPodData] = useState(null); //By default, before the user searches this is null;
     const [commentData, setCommentData] = useState(null); //By default, before the user searches this is null;
     const [reviewData, setReviewData] = useState(null); //By default, before the user searches this is null;
+
+    const { currentUser, currentEmail, currentId } = useUserContext();
 
     useEffect(() => {
         
@@ -55,7 +59,7 @@ export default function Home() {
                 {
                     const response = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`);
                     const postResponse = await axios.post('https://p2-astro.azurewebsites.net/api/Review', 
-                    {comment:`${commentData}`, userid: `1`, podid: `${response.data.podId}`})
+                    {comment:`${commentData}`, userid: `${currentId}`, podid: `${response.data.podId}`})
 
                     if(postResponse.status == 200)
                     {
@@ -64,7 +68,8 @@ export default function Home() {
                     }
                 }
             } catch (error) {
-                console.error('Error fetching Pod data:', error)
+                alert("You need to login to comment!");
+                console.error('Error posting review!:', error)
             }
         };
         PostReview();
@@ -103,7 +108,7 @@ export default function Home() {
         <div className="home">
             <div>
             <h2>Search</h2>
-            <input 
+            <input className='input-field'
                 type="text" 
                 onKeyDown={handleInputChange}
                 placeholder='yyyy-mm-day'
@@ -112,10 +117,13 @@ export default function Home() {
         {
             podData ? (
                 <div>
-                    <h3>{podData.title}</h3>
+                    <br></br>
                     <div id = "pictureAndDesc" >
                         <img src={podData.url} alt={podData.explanation}/>
-                        <p>{podData.explanation}</p>
+                        <div className='explanation-div'>
+                            <h2><i>{podData.title}</i></h2>
+                            <p>{podData.explanation}</p>
+                        </div>
                     </div>
                 </div>
             ) : (
@@ -124,9 +132,9 @@ export default function Home() {
                 </div>
             )
         }
-            <div>
-            <h2>comments</h2>
-            <input 
+            <div className='bording-line'>
+            <h2>Comments</h2>
+            <input className='input-field'
                 type="text"
                 placeholder='Enter Your Comment'
                 onKeyDown={handleReview}
@@ -134,15 +142,17 @@ export default function Home() {
             </div>       
         {
             reviewData ? (
-                <div>
-                    <ul>
-                        {reviewData.map((comment, index) => (
-                            <div>
-                                <li key = {index}>{comment.comment}</li>
+                <ul className='ul-block'>
+                    {reviewData.map((comment, index) => (
+                        <div key = {index}>
+                            <div className='list-item'>
+                                <li >{comment.comment}</li>
                             </div>
-                        ))}
-                    </ul>
-                </div>
+                        </div>
+                        
+                        
+                    ))}
+                </ul>
             ) : (
                 <div>
                     <p> Loading comments...</p>
