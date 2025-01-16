@@ -4,12 +4,7 @@ img {
     box-shadow: 0 0 10px 5px white;
 }
 
-.home {
 
-  background-color: rgb(45, 45, 45);
-  color: white;
-
-}
 
 #pictureAndDesc {
     display: flex; 

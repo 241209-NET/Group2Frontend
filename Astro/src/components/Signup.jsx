@@ -32,7 +32,7 @@ export default function SignUp() {
                 //username is available
                 return true;
             }
-            alert('Error checking username: ', error);
+            alert('Error checking username: ', error.response);
             return false;
         }
         //other error occured
