@@ -1,0 +1,7 @@
+img {
+    width: 30%
+}
+#pictureAndDesc {
+    display: flex; 
+    align-items: center;
+}
