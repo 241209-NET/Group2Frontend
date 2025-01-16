@@ -134,11 +134,15 @@ export default function Home() {
             </div>       
         {
             reviewData ? (
-                <ul>
-                    {reviewData.map((comment, index) => (
-                        <li key = {index}>{comment.comment}</li>
-                    ))}
-                </ul>
+                <div>
+                    <ul>
+                        {reviewData.map((comment, index) => (
+                            <div>
+                                <li key = {index}>{comment.comment}</li>
+                            </div>
+                        ))}
+                    </ul>
+                </div>
             ) : (
                 <div>
                     <p> Loading comments...</p>

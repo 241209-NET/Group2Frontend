@@ -4,4 +4,8 @@ img {
 #pictureAndDesc {
     display: flex; 
     align-items: center;
+    font-size: 120%;
+}
+li {
+    justify-self: anchor-center;
 }
