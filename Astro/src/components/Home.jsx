@@ -1,6 +1,7 @@
 import '../App.css';
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import './Home.css';
 
 
 export default function Home() {
@@ -102,7 +103,7 @@ export default function Home() {
         <div className="home">
             <div>
             <h2>Search</h2>
-            <input 
+            <input className='input-field'
                 type="text" 
                 onKeyDown={handleInputChange}
                 placeholder='yyyy-mm-day'
@@ -112,8 +113,12 @@ export default function Home() {
             podData ? (
                 <div>
                     <h3>{podData.title}</h3>
-                    <img src={podData.url} alt={podData.explanation} />
-                    <p>{podData.explanation}</p>
+                    <div id = "pictureAndDesc" >
+                        <img src={podData.url} alt={podData.explanation}/>
+                        <div className='explanation-div'>
+                            <p>{podData.explanation}</p>
+                        </div>
+                    </div>
                 </div>
             ) : (
                 <div>
@@ -123,7 +128,7 @@ export default function Home() {
         }
             <div>
             <h2>comments</h2>
-            <input 
+            <input className='input-field'
                 type="text"
                 placeholder='Enter Your Comment'
                 onKeyDown={handleReview}
@@ -133,7 +138,13 @@ export default function Home() {
             reviewData ? (
                 <ul>
                     {reviewData.map((comment, index) => (
-                        <li key = {index}>{comment.comment}</li>
+                        <div>
+                            <div className='list-item'>
+                            <li key = {index}>{comment.comment}</li>
+                            </div>
+                        </div>
+                        
+                        
                     ))}
                 </ul>
             ) : (
