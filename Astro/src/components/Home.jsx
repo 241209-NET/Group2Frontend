@@ -4,10 +4,11 @@ import axios from 'axios'
 
 
 export default function Home() {
-
-    const [podToFind, setPodToFind] = useState(1); //By default, it loads Bulbasaur 
+    //let hostString = "https://p2-astro.azurewebsites.net/api/POD/date/2025-01-14";
+    const [podToFind, setPodToFind] = useState(new Date().toISOString().slice(0, 10)); //By default, it loads Bulbasaur 
     const [podData, setPodData] = useState(null); //By default, before the user searches this is null;
-
+    const [commentData, setCommentData] = useState(null); //By default, before the user searches this is null;
+    const [reviewData, setReviewData] = useState(null); //By default, before the user searches this is null;
 
     useEffect(() => {
         
@@ -15,8 +16,7 @@ export default function Home() {
         const fetchPodData = async () => {
             try{
                 //First we try to get a response from pokeAPI
-                const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`); // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
-                
+                const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=HFpqrhFAOdwMs8fKiLVAjWggpyKvaZbmjYmskQVD&date=${podToFind}`); // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
                 setPodData({
                     title: response.data.title,
                     date: response.data.date,
@@ -29,15 +29,85 @@ export default function Home() {
                 setPodData(null);
             }
         };
-        //Here we just call the function
         fetchPodData();
-        //console.log(podData.url);
     }, [podToFind]); // UseEffect exepcts a dependency array as a second argument.
     //Even if you have none, omitting this can result in an infinite loop. 
+
+    useEffect(() => {
+    
+        const fetchApiPodData = async () => {
+            try{
+                const response = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`); // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
+            } catch (error) {
+                axios.post('https://p2-astro.azurewebsites.net/api/POD', { Date: `${podToFind}`, Explanation: `${podData.explanation}`, Title: `${podData.title}`, URL: `${podData.url}`}).then(function (response) {console.log(response);}).catch(function (error) {console.log(error);});
+
+            }
+        };
+        fetchApiPodData();
+    }, [podData]); // UseEffect exepcts a dependency array as a second argument.
+    //Even if you have none, omitting this can result in an infinite loop. 
+
+    useEffect(() => {
+        const PostReview = async () => {
+            try{
+                if(commentData)
+                {
+                    const response = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`);
+                    const postResponse = await axios.post('https://p2-astro.azurewebsites.net/api/Review', 
+                    {comment:`${commentData}`, userid: `1`, podid: `${response.data.podId}`})
+
+                    if(postResponse.status == 200)
+                    {
+                        const reviewResponse = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`);
+                        setReviewData(reviewResponse.data.reviews);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching Pod data:', error)
+            }
+        };
+        PostReview();
+    }, [commentData]);
+    useEffect(() => {
+        const getComments = async () => {
+            try{
+                const reviewResponse = await axios.get(`https://p2-astro.azurewebsites.net/api/POD/date/${podToFind}`);
+                if(reviewResponse.status == 200)
+                    setReviewData(reviewResponse.data.reviews);
+                else
+                    setReviewData(null);
+            } catch (error) {
+                console.error('Error fetching comment data:', error)
+            }
+        }
+        getComments();
+    }, [podToFind]);
+    
+    // UseEffect exepcts a dependency array as a second argument.
+    //Even if you have none, omitting this can result in an infinite loop. 
+    const handleInputChange = (event) => {
+        if (event.key === 'Enter') {
+            setReviewData(null);
+            setPodToFind(event.target.value);
+          }
+    }
+    const handleReview = (event) => {
+        if (event.key === 'Enter') {
+            setCommentData(event.target.value);
+          }
+    }
 
     return ( 
 
         <div className="home">
+            <div>
+            <h2>Search</h2>
+            <input 
+                type="text" 
+                onKeyDown={handleInputChange}
+                placeholder='yyyy-mm-day'
+            />
+            </div>
         {
             podData ? (
                 <div>
@@ -51,8 +121,27 @@ export default function Home() {
                 </div>
             )
         }
-        <div>Astro is a full-stack web application designed to bring astronomy enthusiasts together. By combining the latest NASA imagery with a social platform, Astro offers users a unique space to explore the cosmos and connect with others who share their passion for astronomy.</div>
-
+            <div>
+            <h2>comments</h2>
+            <input 
+                type="text"
+                placeholder='Enter Your Comment'
+                onKeyDown={handleReview}
+            />
+            </div>       
+        {
+            reviewData ? (
+                <ul>
+                    {reviewData.map((comment, index) => (
+                        <li key = {index}>{comment.comment}</li>
+                    ))}
+                </ul>
+            ) : (
+                <div>
+                    <p> Loading comments...</p>
+                </div>
+            )
+        }
         </div>
     )
 

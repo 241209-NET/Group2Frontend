@@ -1,22 +1,37 @@
-import '../App.css';
+
 import './NavBar.css';
+
+import Search from './Search';
 
 
 import { useState } from 'react';
 
 import { Link } from 'react-router-dom'
 
+import { useUserContext } from './UserContext';
+
 export default function NavBar() {
 
-    return ( 
+    const { currentUser, logout } = useUserContext()
 
+    return (
         <nav className="navBar">
-            <a href="/logian">Login</a>
-            <a href="/signup">Signup</a>
-            <a href="/home">Home</a>
-            <a href="/About">About</a>
+          {currentUser === null ? (
+            <>
+                <Link to="/login" className='link'>Login</Link>
+                <Link to="/signup" className='link'>Signup</Link>
+                <Link to="/home" className='link'>Home</Link>
+            </>
+          ) : (
+            <>
+              
+              <Link to="/profile" className='link'>View Profile</Link>
+              <Link to="/login" className='link'>Change user</Link>
+              <Link to="/signup" className='link'>New Account</Link>
+              <Link to="/home" className='link'>Home</Link>
+             
+            </>
+          )}
         </nav>
-    
-    )
-
+      );
 }

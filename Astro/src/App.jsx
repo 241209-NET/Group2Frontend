@@ -1,26 +1,40 @@
-import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import wallpaper from './assets/space_wallpaper.jpeg';
-
 import NavBar from './components/NavBar';
-
 import Home from './components/Home';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import Profile from './components/Profile'; // Import Profile component
+import UserProvider from './components/UserContext';
+import Search from './components/Search';
+import Review, { LoadReview } from './components/Review';
 
 function App() {
-  const [count, setCount] = useState(0);
 
-  //const [loggedIn, loggedOut] = useState(loggedOut);
+
 
   return (
-    <div>
-
-      <div className="title">ASTRO</div>
-      <NavBar></NavBar>
-      <Home></Home>
-
+    <UserProvider>
+      <Router>
+      <div>
+        <div className="title">ASTRO</div>
+        <NavBar />
+        <div className="body">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+        </div>
       </div>
-
+      {/*<LoadReview username="Bob" comment="this is a comment" />
+      <Review />*/}
+      </Router>
+      
+    </UserProvider>
   );
 }
 
