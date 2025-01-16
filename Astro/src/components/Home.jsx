@@ -1,6 +1,7 @@
 import '../App.css';
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import './Home.css';
 
 
 export default function Home() {
@@ -112,8 +113,10 @@ export default function Home() {
             podData ? (
                 <div>
                     <h3>{podData.title}</h3>
-                    <img src={podData.url} alt={podData.explanation} />
-                    <p>{podData.explanation}</p>
+                    <div id = "pictureAndDesc" >
+                        <img src={podData.url} alt={podData.explanation}/>
+                        <p>{podData.explanation}</p>
+                    </div>
                 </div>
             ) : (
                 <div>
@@ -131,11 +134,15 @@ export default function Home() {
             </div>       
         {
             reviewData ? (
-                <ul>
-                    {reviewData.map((comment, index) => (
-                        <li key = {index}>{comment.comment}</li>
-                    ))}
-                </ul>
+                <div>
+                    <ul>
+                        {reviewData.map((comment, index) => (
+                            <div>
+                                <li key = {index}>{comment.comment}</li>
+                            </div>
+                        ))}
+                    </ul>
+                </div>
             ) : (
                 <div>
                     <p> Loading comments...</p>

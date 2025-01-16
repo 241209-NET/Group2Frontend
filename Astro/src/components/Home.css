@@ -1,0 +1,11 @@
+img {
+    width: 30%
+}
+#pictureAndDesc {
+    display: flex; 
+    align-items: center;
+    font-size: 120%;
+}
+li {
+    justify-self: anchor-center;
+}
