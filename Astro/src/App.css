@@ -80,9 +80,10 @@
 
   outline: none;
   border: 2px solid black;
-  margin: 8px 0;
+  margin: 10px 0;
   font-size: 30px;
-  border-radius: 5.00px;
+  border-radius: 10.00px;
+  padding: 20px;
 
   color: white;
   background-color: darkslateblue;

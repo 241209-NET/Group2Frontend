@@ -27,10 +27,11 @@
     outline: none;
     margin: 5px 10;
     font-size: 25px;
-    border-radius: 5.00px;
+    border-radius: 15.00px;
     position: relative;
 
     /*width: 350px;*/
+    padding: 25px;
   
     color: white;
     background-color: darkslateblue;

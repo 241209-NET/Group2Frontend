@@ -7,8 +7,9 @@ import { useUserContext } from './UserContext';
 export default function SignUp() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [user, setUser] = useState('');
     const [email, setEmail] = useState('');
-    const { login } = useUserContext();
+    const { logout, login } = useUserContext();
     const navigate = useNavigate();
 
     // Password validation regex
@@ -40,13 +41,18 @@ export default function SignUp() {
 
     // Add new user to the database
     async function addUser(user) {
+
         try {
             const response = await axios.post('https://p2-astro.azurewebsites.net/api/User/', user, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log('User added successfully:', response.data);
+            //alert('User added successfully: id ' + response.data.userId);
+            logout();
+
+            login(response.data);
+
         } catch (error) {
             if (error.response) {
                 console.error('Error response data:', error.response.data);
@@ -79,7 +85,7 @@ export default function SignUp() {
             return;
         }
 
-        login(username);
+        
 
         const newUser = { username, password, email };
 
